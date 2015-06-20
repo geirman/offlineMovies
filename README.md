@@ -1,0 +1,2 @@
+# offlineMovies
+a sample react-native app that retrieves movies from an api and caches the result offline. It makes use of  AsyncStorage to do so. This is a network-first approach, whereby the app prefers to retrieve fresh data from the network and only goes to the cache if it's unable to access the network.
