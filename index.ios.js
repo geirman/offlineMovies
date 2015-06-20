@@ -41,6 +41,7 @@ var offlineMovies = React.createClass({
         rowHasChanged: (r1, r2) => r1 !== r2,
       }),
       loaded: false,
+      cached: false, // tracks whether the view was built from cached data
     };
   },
 
@@ -69,6 +70,7 @@ var offlineMovies = React.createClass({
           this.setState({
             dataSource: this.state.dataSource.cloneWithRows(JSON.parse(response)),
             loaded: true,
+            cached: true,
           });
         })
         .catch((error) => {
@@ -93,13 +95,15 @@ var offlineMovies = React.createClass({
   },
 
   searchView: function() {
+
     return (
       <View style={styles.search}>
+        { this.renderCachedDataWarning() }
         <TextInput 
           style={{height: 40, borderColor: 'gray', borderWidth: 1}} 
           clearButtonMode='while-editing'
           placeholder='Find a movie'
-        />
+        />   
       </View>
     )
   },
@@ -112,6 +116,18 @@ var offlineMovies = React.createClass({
           size="large"
           />
       </View>
+    )
+  },
+
+  renderCachedDataWarning: function() {
+    if(!this.state.cached) { return false}
+
+    return (
+        <View style={styles.cacheWarning}>
+          <Text style={{color: '#ffffff', fontSize: 16, textAlign: 'center'}}>
+            Cached Data Below
+          </Text>
+        </View>
     )
   },
 
@@ -162,6 +178,10 @@ var styles = StyleSheet.create({
   listView: {
     paddingTop: 20,
     backgroundColor: '#F5FCFF',
+  },
+  cacheWarning: {
+    padding:20,
+    backgroundColor: '#cc5500',
   }
 });
 
