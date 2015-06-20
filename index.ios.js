@@ -29,6 +29,7 @@ var {
   View,
   AsyncStorage,
   TextInput,
+  ActivityIndicatorIOS,
 } = React;
 
 var offlineMovies = React.createClass({
@@ -106,9 +107,10 @@ var offlineMovies = React.createClass({
   renderLoadingView: function() {
     return (
       <View style={styles.container}>
-        <Text>
-          Loading movies...
-        </Text>
+        <ActivityIndicatorIOS 
+          color="#cc5500" 
+          size="large"
+          />
       </View>
     )
   },
